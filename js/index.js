@@ -7,15 +7,6 @@
   The tasks you need to do are below.
 
     TASKS TODO:
-      1. Calculate the score as the total of the number of correct answers
-
-      2. Add an Event listener for the submit button, which will display the score and highlight 
-         the correct answers when the button is clicked. Use the code from lines 67 to 86 to help you.
-
-      3. Add 2 more questions to the app (each question must have 4 options).
-
-      4. Reload the page when the reset button is clicked (hint: search window.location)
-
       5. Add a countdown timer - when the time is up, end the quiz, display the score and highlight the correct answers
 *************************** */
 
@@ -44,7 +35,23 @@ window.addEventListener('DOMContentLoaded', () => {
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+    {
+      q: 'How many months have 28 days?',
+      o: ['1', '2', 'All of them', 'Depends if there is a leap year or not'],
+      a: 2,
+    },
+    {
+      q: 'How many 0.5cm slices can you cut from a bread that is 25cm long?',
+      o: ['50', '38', '20', '15'],
+      a: 0,
+    },
+
   ];
+
+  /*let timer;
+  let timeLeft = 60; // 60 seconds countdown
+  let score = 0;  // Track score
+  let userAnswers = []; // Store user answers*/
 
   // function to Display the quiz questions and answers from the object
   const displayQuiz = () => {
@@ -76,15 +83,47 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
+          liElement.style.backgroundColor = 'lightgreen';
         }
 
-        if (radioElement.checked) {
-          // code for task 1 goes here
+        if (radioElement.checked && quizItem.a == i) {
+          score++;
         }
       }
     });
+
+    document.getElementById('score').textContent = "Your score: " + score;
+    
   };
+
+  // Event listener for the submit button 
+  document.getElementById('btnSubmit').addEventListener('click', () => { 
+    calculateScore();
+
+   });
 
   // call the displayQuiz function
   displayQuiz();
+});
+
+  
+
+/*function startTimer() {
+  const timerElement = document.getElementById('timer');
+  timer = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      timerElement.textContent = timeLeft;
+    } else {
+      clearInterval(timer);
+      submitQuiz();
+    }
+  }, 1000);
+} */
+
+// Reload the current page
+
+document.getElementById('btnReset').addEventListener('click', function() { 
+  window.location.reload();
+
 });
